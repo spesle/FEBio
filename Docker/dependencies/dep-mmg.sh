@@ -1,19 +1,9 @@
 #! /bin/bash
+. ./common-functions.sh
 
 MMG_SOURCE=https://github.com/MmgTools/mmg/archive/master.zip
 MMG_ARCHIVE=$(basename $MMG_SOURCE)
 MMG_PATH="mmg-${MMG_ARCHIVE%.*}"
-
-download_source() {
-	local source=$1
-
-	wget "$source"
-}
-
-extract_source() {
-	local archive=$1
-	unzip "$archive"
-}
 
 build_and_install() {
 	local source=$1
