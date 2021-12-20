@@ -3,7 +3,8 @@ SHELL ["/bin/bash", "-c"]
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
-RUN apt-get install zip curl vim-common tmux -y
+RUN apt-get install zip curl vim-common tmux dos2unix git -y
+RUN apt-get install liblapack-dev libblas-dev f2c -y
 
 # Setup dependency installers
 ARG DEPENDENCIES_PATH=/tmp/dependencies

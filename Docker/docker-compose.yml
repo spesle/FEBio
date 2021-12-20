@@ -1,8 +1,0 @@
-version: "3.9"
-services:
-  febio:
-    build: .
-    image: febiosoftware/febio:latest
-    volumes:
-      # Code is up a level, mount to root of /FEBio
-      - ../:/FEBio

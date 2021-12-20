@@ -1,6 +1,5 @@
 #! /bin/bash
 set -o errexit
-set -o xtrace
 set -o verbose
 
 . ./common-functions.sh
@@ -16,7 +15,7 @@ build_and_install() {
 	local source=$1
 	pushd "$source" || exit 1
 	pushd src || exit 1
-	./configure --prefix=/usr/local/
+	./configure --prefix=/usr/local/ CFLAGS='-fPIC' CXXFLAGS='-fPIC'
 	make -j "$(nproc)"
 	make install
 	popd || exit 1
