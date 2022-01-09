@@ -1,11 +1,16 @@
 version: "3"
 services:
-  febio-dev: &default
+  febio: &default
     build: ./Docker
     image: febiosoftware/febio:latest
     working_dir: /FEBio
     volumes:
       - ./:/FEBio
+
+  febio-dev:
+    <<: *default
+    container_name: febio-dev
+    command: sleep infinity
 
   febio-build:
     <<: *default

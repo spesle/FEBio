@@ -2,6 +2,7 @@
 set -o errexit
 set -o verbose
 
+# shellcheck disable=1091
 . ./common-functions.sh
 
 MMG_SOURCE=https://github.com/MmgTools/mmg/archive/master.zip

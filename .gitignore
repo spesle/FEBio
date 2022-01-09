@@ -433,3 +433,6 @@ CMakeCache.txt
 
 ## Visual Studio Code
 .vscode/
+
+## Docker
+!Docker/build

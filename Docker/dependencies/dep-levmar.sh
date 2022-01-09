@@ -2,6 +2,7 @@
 set -o errexit
 set -o verbose
 
+# shellcheck disable=1091
 . ./common-functions.sh
 
 LEVMAR_SOURCE=http://users.ics.forth.gr/~lourakis/levmar/levmar-2.6.tgz
@@ -14,7 +15,7 @@ build_and_install() {
 	local build_dir=cmake-build
 	pushd "$source" || exit 1
 	dos2unix CMakeLists.txt CMakeLists.txt
-	patch --ignore-whitespace -p0 < $patchfile
+	patch --ignore-whitespace -p0 < "$patchfile"
 	mkdir -p $build_dir
 	pushd $build_dir || exit 1
 	cmake -DBUILD_DEMO:BOOLEAN=false .. -B .
@@ -25,6 +26,7 @@ build_and_install() {
 }
 
 main() {
+	# shellcheck disable=2155
 	local patchfile="$(pwd)/levmar-install.patch"
 	pwd
 	pushd "$BUILD_PATH" || exit 1

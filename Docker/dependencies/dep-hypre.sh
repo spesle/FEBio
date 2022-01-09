@@ -2,6 +2,7 @@
 set -o errexit
 set -o verbose
 
+# shellcheck disable=1091
 . ./common-functions.sh
 
 HYPRE_SOURCE="https://github.com/hypre-space/hypre/archive/refs/tags/v2.23.0.zip"
