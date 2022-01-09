@@ -4,9 +4,6 @@ set -o verbose
 
 . ./common-functions.sh
 
-# shellcheck disable=1091
-. /opt/intel/oneapi/setvars.sh
-
 HYPRE_SOURCE="https://github.com/hypre-space/hypre/archive/refs/tags/v2.23.0.zip"
 HYPRE_ARCHIVE=$(basename $HYPRE_SOURCE)
 HYPRE_PATH="hypre-2.23.0"
