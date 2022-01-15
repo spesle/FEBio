@@ -427,9 +427,9 @@ cbuild/
 cmbuild/
 CMakeFiles
 ##cmake files
-CMakeLists.txt
+!CMakeLists.txt
 CMakeCache.txt
-*.cmake
+!*.cmake
 
 ## Visual Studio Code
 .vscode/
