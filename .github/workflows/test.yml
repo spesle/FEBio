@@ -1,0 +1,39 @@
+name: ecr-login
+on:
+  push:
+
+env:
+  AWS_REGION: us-east-1
+
+jobs:
+  login:
+    runs-on: ubuntu-latest
+    outputs:
+      aws_password: ${{ steps.ecr_login.outputs.aws_password }}
+    steps:
+      - id: configure-aws-credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - id: ecr_login
+        run: |
+          echo "::echo::on"
+          echo "::set-output name=aws_password::$(aws ecr get-login-password --region us-east-1)"
+          echo "::echo::off"
+
+  test:
+    env:
+      AWS_PASSWORD: ${{ needs.login.outputs.aws_password }}
+    needs: login
+    runs-on: ubuntu-latest
+    container:
+      image: 353328028284.dkr.ecr.us-east-1.amazonaws.com/febio:latest
+      credentials:
+        username: AWS
+        password: $AWS_PASSWORD
+    steps:
+      - run: echo $AWS_PASSWORD
+      - run: echo "Inside a container pulled from ECR \o/"
