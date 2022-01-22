@@ -34,14 +34,12 @@ jobs:
         username: AWS
         password: ${{ needs.login.outputs.aws_password }}
     steps:
-      #- uses: actions/checkout@v2
-      - name: Dump AWS Password
-        run: echo "${{needs.login.outputs.aws_password}}"
-      #- name: Configure CMake
-      #  # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
-      #  # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      #  run: cmake -B ${{github.workspace}}/cmbuild -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      - uses: actions/checkout@v2
+      - name: Configure CMake
+        # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+        # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+        run: cmake -B ${{github.workspace}}/cmbuild -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
-      #- name: Build
-      #  # Build your program with the given configuration, 2 cores is default jobs on Linux
-      #  run: cmake --build ${{github.workspace}}/cmbuild --config ${{env.BUILD_TYPE}} -j 2
+      - name: Build
+        # Build your program with the given configuration, 2 cores is default jobs on Linux
+        run: cmake --build ${{github.workspace}}/cmbuild --config ${{env.BUILD_TYPE}} -j 2
