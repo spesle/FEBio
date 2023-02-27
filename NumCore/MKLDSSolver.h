@@ -24,19 +24,26 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 #pragma once
-#include <FECore/FEAnalysis.h>
-#include "febiofluid_api.h"
+#include <FECore/LinearSolver.h>
 
-class FEBIOFLUID_API FEFluidSoluteAnalysis : public FEAnalysis
+class MKLDSSolver : public LinearSolver
 {
-public:
-	enum FluidSoluteAnalysisType {
-		STEADY_STATE,
-		DYNAMIC
-	};
+	class Imp;
 
 public:
-	FEFluidSoluteAnalysis(FEModel* fem);
+	MKLDSSolver(FEModel* fem);
+	~MKLDSSolver();
+	bool PreProcess() override;
+	bool Factor() override;
+	bool BackSolve(double* x, double* y) override;
+	void Destroy() override;
+
+	SparseMatrix* CreateSparseMatrix(Matrix_Type ntype) override;
+	bool SetSparseMatrix(SparseMatrix* pA) override;
+
+protected:
+	Imp* m;
 
 	DECLARE_FECORE_CLASS();
 };
+

@@ -27,34 +27,53 @@ SOFTWARE.*/
 
 
 #pragma once
-
 #include <FECore/LinearSolver.h>
-#include "SkylineMatrix.h"
+#include <FECore/CompactUnSymmMatrix.h>
+#include <FECore/CompactSymmMatrix.h>
 
-//-----------------------------------------------------------------------------
-//! Implements a linear solver that uses a skyline format
+//! This Pardiso solver can be installed as a shared object library from
+//!		http://www.pardiso-project.org
 
-class SkylineSolver : public LinearSolver
+
+class PardisoProjectSolver : public LinearSolver
 {
 public:
-	//! constructor
-	SkylineSolver(FEModel* fem);
-
-	//! Preprocess 
+	PardisoProjectSolver(FEModel* fem);
+	~PardisoProjectSolver();
 	bool PreProcess() override;
-
-	//! Factor matrix
 	bool Factor() override;
-
-	//! Backsolve the linear system
-	bool BackSolve(double* x, double* b) override;
-
-	//! Clean up
+	bool BackSolve(double* x, double* y) override;
 	void Destroy() override;
 
-	//! Create a sparse matrix
 	SparseMatrix* CreateSparseMatrix(Matrix_Type ntype) override;
+	bool SetSparseMatrix(SparseMatrix* pA) override;
 
-private:
-	SkylineMatrix*	m_pA;
+	void PrintConditionNumber(bool b);
+
+	double condition_number();
+
+	void UseIterativeFactorization(bool b);
+
+protected:
+
+	CompactMatrix*	m_pA;
+	int				m_mtype; // matrix type
+
+	// Pardiso control parameters
+	int m_iparm[64];
+	int m_maxfct, m_mnum, m_msglvl;
+	double m_dparm[64];
+
+	bool m_iparm3;	// use direct-iterative method
+
+	// Matrix data
+	int m_n, m_nnz, m_nrhs;
+
+	bool	m_print_cn;	// estimate and print the condition number
+
+	bool	m_isFactored;
+
+	void* m_pt[64]; // Internal solver memory pointer
+
+	DECLARE_FECORE_CLASS();
 };

@@ -27,7 +27,8 @@ SOFTWARE.*/
 
 
 #pragma once
-#include <FECore/SparseMatrix.h>
+#include "SparseMatrix.h"
+#include "fecore_api.h"
 
 //=============================================================================
 //! Implements a sparse matrix using the skyline storage
@@ -35,7 +36,7 @@ SOFTWARE.*/
 //! This class implements a symmetric sparse matrix where only the values
 //! below the skyline are stored.
 
-class SkylineMatrix : public SparseMatrix
+class FECORE_API SkylineMatrix : public SparseMatrix
 {
 public:
 	SkylineMatrix();

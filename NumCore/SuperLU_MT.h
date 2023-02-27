@@ -25,8 +25,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 #pragma once
 #include <FECore/LinearSolver.h>
-#include "CompactUnSymmMatrix.h"
-#include "CompactSymmMatrix.h"
+#include <FECore/CompactUnSymmMatrix.h>
+#include <FECore/CompactSymmMatrix.h>
 
 class SuperLU_MT_Solver: public LinearSolver
 {
